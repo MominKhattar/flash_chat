@@ -34,10 +34,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     },
     );
 
+
     controller.addListener(() {
       print(animation.value);
       setState(() {});
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
