@@ -3,36 +3,36 @@ import 'package:flash_chat/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
- static const String id = "Welcome_Screen";
-
+  static const String id = "Welcome_Screen";
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
-   late AnimationController controller;
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation animation;
 
-   @override
+  @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this,
-    duration: Duration(seconds: 1));
+    controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+
+    animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
 
     controller.forward();
     controller.addListener(() {
-      print(controller.value);
-      setState(() {
-
-      });
+      print(animation.value);
+      setState(() {});
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red.withOpacity(controller.value),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: animation.value * 100,
                   ),
                 ),
                 Text(
