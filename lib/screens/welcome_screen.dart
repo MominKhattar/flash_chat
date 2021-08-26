@@ -20,9 +20,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
 
-    animation = CurvedAnimation(parent: controller, curve: Curves.bounceOut);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
 
-    controller.forward();
+    controller..forward();
+
+    animation.addStatusListener((status) {
+      if( status == AnimationStatus.completed){
+        controller.reverse(from: 1.0);
+      }
+      else if ( status == AnimationStatus.dismissed){
+        controller.forward();
+      }
+    },
+    );
+
     controller.addListener(() {
       print(animation.value);
       setState(() {});
