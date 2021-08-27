@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "440791659257",
+    "project_id": "flash-chat-9",
+    "storage_bucket": "flash-chat-9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440791659257:android:c6bb083c53ef9f43d76828",
+        "android_client_info": {
+          "package_name": "com.logicvalley.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440791659257-f239969qq60cbdji2f2r7hnkkvemeo2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg7QtioG_6jP6K5MJ2Z8aT2rutf1X-v3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440791659257-f239969qq60cbdji2f2r7hnkkvemeo2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
