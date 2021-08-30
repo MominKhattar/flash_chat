@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/constants.dart';
+import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
   static String id = "chat_screen";
@@ -45,7 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 _auth.signOut();
-                Navigator.pop(context);
+
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                 //Implement logout functionality
               }),
         ],
@@ -73,12 +75,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      _firestore.collection("message").add(
-                        {
-                          'text' : messageText,
-                          'sender' : loggedInUser,
-                        }
-                      );
+                      _firestore.collection("message").add({
+                        'text': messageText,
+                        'sender': loggedInUser,
+                      });
                       //Implement send functionality.
                     },
                     child: Text(
