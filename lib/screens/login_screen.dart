@@ -76,17 +76,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     showSpinner = true;
                   });
 
+                  var user;
                   try {
-                    final user = await _auth.signInWithEmailAndPassword(
+                    user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
-                    if (user != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
-                    }
+
 
                     showSpinner = false;
                   } catch (e) {
                     print(e);
                   }
+                  if (user != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                  else{
+
+
+                  }
+                  setState(() {
+                    showSpinner = false;
+                  });
                   // Todo : Add login functionlity
                 },
               ),
