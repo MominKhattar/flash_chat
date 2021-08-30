@@ -1,40 +1,40 @@
-import 'package:flutter/material.dart';
-import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flash_chat/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
-  static String id ="chat_screen";
+  static String id = "chat_screen";
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
   @override
   void initState() {
     getCurrenUser();
     super.initState();
   }
 
-
+  final _firestore = FirebaseFirestore.instance;
+  late String messageText;
   final _auth = FirebaseAuth.instance;
-   late String loggedUser;
-  void getCurrenUser()  {
-   try{
-     final user =  _auth.currentUser;
-     final newUser = user!.email;
-     if (newUser != null){
-       loggedUser = newUser;
-       print(loggedUser);
-     }
-   }
-   catch(e){
-     print(e);
-   }
+  late String loggedInUser;
 
+  void getCurrenUser() {
+    try {
+      final user = _auth.currentUser;
+      final newUser = user!.email;
+      if (newUser != null) {
+        loggedInUser = newUser;
+        print(loggedInUser);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
+                        messageText = value;
                         //Do something with the user input.
                       },
                       decoration: kMessageTextFieldDecoration,
@@ -72,11 +73,19 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      _firestore.collection("message").add(
+                        {
+                          'text' : messageText,
+                          'sender' : loggedInUser,
+                        }
+                      );
                       //Implement send functionality.
                     },
                     child: Text(
                       'Send',
-                      style: kSendButtonTextStyle,
+                      style: kSendButtonTextStyle.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

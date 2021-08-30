@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/components/rounded_button.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,12 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
   late String password;
   bool showSpinner = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: LoadingOverlay(
+        color: Colors.black,
+        opacity: 0.7,
         isLoading: showSpinner,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -69,24 +70,21 @@ class _LoginScreenState extends State<LoginScreen> {
               RoundedButton(
                 title: "Log In",
                 color: Colors.lightBlueAccent,
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
-                    showSpinner =true;
+                    showSpinner = true;
                   });
 
-                  try{
-
-                    final user = _auth.signInWithEmailAndPassword(email: email, password: password);
-                    if ( user != null ){
+                  try {
+                    final user = await _auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    if (user != null) {
                       Navigator.pushNamed(context, ChatScreen.id);
                     }
 
                     showSpinner = false;
-
-
-                  }
-                  catch(e){
-                    print (e);
+                  } catch (e) {
+                    print(e);
                   }
                   // Todo : Add login functionlity
                 },
